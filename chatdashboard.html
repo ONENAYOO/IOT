@@ -1,0 +1,58 @@
+<?php 
+
+<script src="https://cdn.netpie.io/microgear.js"></script>
+
+<script>
+	const APPID = "Testwittawat";
+	const KEY = "rd0xdfHaxoTOFTn";
+      const SECRET = "SyigaZHzxEa16H9EiWEI4VS82";
+	const ALIAS = "HTMLChat1";
+
+	var microgear = Microgear.create({
+		gearkey: KEY,
+		gearsecret: SECRET,
+		gearalias : ALIAS
+	});
+
+	microgear.on('message',function(topic,msg) {
+		document.getElementById("data").innerHTML = "Count="+msg;
+		console.log('Topic='+topic +', message'+msg);
+	});
+
+	microgear.on('connected', function() {
+		//microgear.setAlias(ALIAS);
+		document.getElementById("data").innerHTML = "Now I am connected with netpie...";
+		console.log('connected with NETPIE....');
+		});
+
+		/*setInterval(function() {
+			microgear.chat("htmlgear","Hello from myself at "+Date.now());
+		},5000);
+	});*/
+
+	microgear.on('present', function(event) {
+		console.log(event);
+	});
+
+	microgear.on('absent', function(event) {
+		console.log(event);
+	}); 
+
+
+	microgear.resettoken(function(result){
+		microgear.connect(APPID);
+	});
+
+	function myFunction(){
+var x = document.getElementById("myText").value;
+microgear.chat("ESPChat",x);
+console.log('message='+ x);
+	}
+</script>
+
+<center>
+	<h1><div id ="data">_________</div></h1>
+	<h1>PUT message:  <input type="text" id="myText"><button onclick="myFunction()">Send</button></h1>
+</center>
+
+
